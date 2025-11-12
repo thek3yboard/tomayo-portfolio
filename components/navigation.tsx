@@ -62,7 +62,8 @@ export function Navigation() {
           </div>
           <button
             onClick={() => setLanguage(language === "ENG" ? "ESP" : "ENG")}
-            className="text-base font-bold tracking-wide hover:opacity-70 transition-opacity"
+            className="font-mono font-bold text-base hover:opacity-70 transition-opacity"
+            disabled
           >
             {language}/ESP
           </button>
