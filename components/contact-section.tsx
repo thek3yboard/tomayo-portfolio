@@ -1,8 +1,8 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import emailjs from "emailjs-com"
 
 import { Footer } from "@/components/footer";
 import CallIcon from "@mui/icons-material/Call";
@@ -15,10 +15,35 @@ export function ContactSection() {
     email: "",
     message: "",
   })
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle")
+
+  useEffect(() => {
+    setTimeout(() => {
+      if(status === 'success' || status === 'error') {
+        setStatus("idle")
+      }
+    }, 2500);
+  }, [status])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form submitted:", formData)
+    setStatus("sending")
+
+    emailjs
+      .send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        formData,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      )
+      .then(() => {
+        setStatus("success")
+        setFormData({ name: "", email: "", message: "" })
+      })
+      .catch((error) => {
+        console.error(error)
+        setStatus("error")
+      })
   }
 
   return (
@@ -73,6 +98,7 @@ export function ContactSection() {
                 placeholder="Name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                required
                 className="w-full px-4 py-3 font-sans font-light text-lg bg-[#ede9e5] border border-gray-300 focus:outline-none focus:border-gray-500 shadow-sm"
               />
               <input
@@ -80,6 +106,7 @@ export function ContactSection() {
                 placeholder="Email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                required
                 className="w-full px-4 py-3 font-sans font-light text-lg bg-[#ede9e5] border border-gray-300 focus:outline-none focus:border-gray-500 shadow-sm"
               />
               <textarea
@@ -87,14 +114,24 @@ export function ContactSection() {
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 rows={6}
+                required
                 className="w-full px-4 py-3 font-sans font-light text-lg bg-[#ede9e5] border border-gray-300 focus:outline-none focus:border-gray-500 resize-none shadow-sm"
               />
-              <button
-                type="submit"
-                className="font-sans font-normal text-xl text-[#ede9e5] tracking-widest bg-[#6c0e06] hover:bg-[#8b2f2f] transition-colors py-2 px-4"
-              >
-                SEND
-              </button>
+              <span className="flex items-center gap-3">
+                <button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="font-sans font-normal text-xl text-[#ede9e5] tracking-widest bg-[#6c0e06] hover:bg-[#8b2f2f] transition-colors py-2 px-4 disabled:opacity-60"
+                >
+                  {status === "sending" ? "SENDING..." : "SEND"} 
+                </button>
+                {status === "success" && (
+                  <p className="text-green-700 text-sm flex items-center">Message sent successfully ✅</p>
+                )}
+                {status === "error" && (
+                  <p className="text-red-700 text-sm flex items-center">Something went wrong. Please try again.</p>
+                )}
+              </span>
             </form>
           </div>
         </div>
