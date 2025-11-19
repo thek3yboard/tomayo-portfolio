@@ -21,7 +21,7 @@ export function HeroSection() {
             </div>
           </div>
           <div className="shrink-0">
-            <div className="w-[500px] h-[500px] rounded-full overflow-hidden">
+            <div className="w-[500px] h-[500px] max-md:w-[75vw] max-md:h-auto rounded-full overflow-hidden">
               <img src="/profile.png" alt="Tomás Ceballos" className="w-full h-full object-cover" />
             </div>
           </div>

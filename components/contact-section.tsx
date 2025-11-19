@@ -58,7 +58,7 @@ export function ContactSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div className="flex flex-col justify-between">
-            <p className="font-sans text-xl">
+            <p className="font-sans text-xl max-md:mb-6">
               Thanks for reaching me out, it would be a pleasure to hear your proposal and work in a project together.
               You can find direct links below to contact me, or just fill up the form to send me a message.
             </p>
@@ -68,7 +68,7 @@ export function ContactSection() {
                 <div className="text-3xl"><CallIcon sx={{ fontSize: 50, color: "#21180E" }} /></div>
                 <div>
                   <p className="font-sans font-light text-md">Phone</p>
-                  <p className="font-sans font-semibold text-lg tracking-wide">(+54) 11 6238 8686</p>
+                  <p className="font-sans font-semibold text-lg max-md:text-base tracking-wide">(+54) 11 6238 8686</p>
                 </div>
               </div>
 
@@ -76,7 +76,7 @@ export function ContactSection() {
                 <div className="text-3xl"><MailIcon sx={{ fontSize: 50, color: "#21180E" }} /></div>
                 <div>
                   <p className="font-sans font-light text-md">Email</p>
-                  <p className="font-sans font-semibold text-lg tracking-wide">tomas.ceb21@hotmail.com</p>
+                  <p className="font-sans font-semibold text-lg max-md:text-base tracking-wide">tomas.ceb21@hotmail.com</p>
                 </div>
               </div>
 
@@ -84,7 +84,7 @@ export function ContactSection() {
                 <div className="text-3xl"><LinkedInIcon sx={{ fontSize: 50, color: "#21180E" }} /></div>
                 <div>
                   <p className="font-sans font-light text-md">Linkedin</p>
-                  <p className="font-sans font-semibold text-lg tracking-wide">Tomas Ceballos</p>
+                  <p className="font-sans font-semibold text-lg max-md:text-base tracking-wide">Tomas Ceballos</p>
                 </div>
               </div>
             </div>
@@ -117,7 +117,7 @@ export function ContactSection() {
                 required
                 className="w-full px-4 py-3 font-sans font-light text-lg bg-[#ede9e5] border border-gray-300 focus:outline-none focus:border-gray-500 resize-none shadow-sm"
               />
-              <span className="flex items-center gap-3">
+              <span className="flex items-center gap-3 max-md:justify-center">
                 <button
                   type="submit"
                   disabled={status === "sending"}
